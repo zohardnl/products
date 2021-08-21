@@ -1,0 +1,13 @@
+<div fxLayout="column" fxFill fxLayoutAlign="start center" class="products">
+  <h1>Products</h1>
+
+  <div class="products__tab">
+    <mat-tab-group color="primary">
+      <mat-tab *ngFor="let product of productsData;trackBy:trackByIndex" [label]="product.title">
+        <ng-template matTabContent>
+          <vdoo-view-table [data]="product.items"></vdoo-view-table>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

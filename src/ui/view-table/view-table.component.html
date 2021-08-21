@@ -1,0 +1,22 @@
+<div class="view-table" *ngIf="data?.length;else noResults">
+  <mat-table matSort [dataSource]="dataSource">
+    <ng-container *ngFor="let column of displayedColumns;trackBy:trackByIndex">
+      <ng-container [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span>{{column | titlecase}}</span>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row">
+          <span>{{row[column]}}</span>
+        </mat-cell>
+      </ng-container>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row;odd as isOdd;columns: displayedColumns" [ngClass]="{odd:isOdd}"></mat-row>
+  </mat-table>
+</div>
+
+<ng-template #noResults>
+  <span>No Results</span>
+</ng-template>
