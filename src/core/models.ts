@@ -6,7 +6,7 @@ export interface ProductData {
 export interface DefaultDataFields {
   vendor: string;
   name: string;
-  price: number;
+  price: number | string;
 }
 
 export interface Car extends DefaultDataFields {

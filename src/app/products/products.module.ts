@@ -6,6 +6,9 @@ import { ProductsComponent } from './products.component';
 import {FlexModule} from "@angular/flex-layout";
 import {ViewTableModule} from "../../ui/view-table/view-table.module";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -17,6 +20,9 @@ import {MatTabsModule} from "@angular/material/tabs";
     FlexModule,
     ViewTableModule,
     MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
     ProductsRoutingModule
   ]
 })
