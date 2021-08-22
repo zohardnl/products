@@ -9,6 +9,7 @@
     "noImplicitReturns": true,
     "strictNullChecks": false,
     "noFallthroughCasesInSwitch": true,
+    "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,

@@ -1,6 +1,6 @@
 <div class="view-table" *ngIf="data?.length;else noResults">
-  <mat-table matSort [dataSource]="dataSource">
-    <ng-container *ngFor="let column of displayedColumns;trackBy:trackByIndex">
+  <mat-table matSort [dataSource]="dataSource" [trackBy]="trackByFn" (matSortChange)="sortBy($event)">
+    <ng-container *ngFor="let column of displayedColumns">
       <ng-container [matColumnDef]="column">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           <span>{{column | titlecase}}</span>

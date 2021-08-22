@@ -10,7 +10,7 @@
     </div>
 
     <div class="products__tab">
-      <mat-tab-group color="primary" mat-stretch-tabs>
+      <mat-tab-group color="primary" mat-stretch-tabs (selectedTabChange)="onTabChange($event)">
         <mat-tab *ngFor="let product of productsData;trackBy:trackByIndex" [label]="product.title">
           <ng-template matTabContent>
             <vdoo-view-table [data]="product.items" [filterBy]="filterBy | async"></vdoo-view-table>
