@@ -1,19 +1,22 @@
 export interface ProductData {
   title: string;
-  items: ProductDataFields[] | Car[] | Laptop[]
+  items: Phone[] | Car[] | Laptop[]
 }
 
-export interface ProductDataFields {
+export interface DefaultDataFields {
   vendor: string;
   name: string;
   price: number | string;
-  priceAmount?:number;
+  priceAmount?: number;
 }
 
-export interface Car extends ProductDataFields {
+export interface Phone extends DefaultDataFields {
+}
+
+export interface Car extends DefaultDataFields {
   is_hybrid: boolean;
 }
 
-export interface Laptop extends ProductDataFields {
+export interface Laptop extends DefaultDataFields {
   system: string;
 }

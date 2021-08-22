@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import {Car, Laptop, ProductDataFields} from "../../core/models";
+import {Car, Laptop, Phone} from "../../core/models";
 import {MatSort, Sort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {CurrencyPipe} from "@angular/common";
@@ -21,16 +21,16 @@ import {CurrenciesCode, DisplayAmountBy, ProductFieldsName} from "../../core/enu
 })
 export class ViewTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) private readonly sort: MatSort;
-  @Input() data: ProductDataFields[] | Car[] | Laptop[];
+  @Input() data: Phone[] | Car[] | Laptop[];
 
   @Input() set filterBy(val: string) {
     if (this.dataSource) {
-      this.dataSource.filter = val;
+      this.dataSource.filter = val.trim().toLowerCase();
     }
   }
 
   displayedColumns: string[];
-  dataSource: MatTableDataSource<ProductDataFields | Car | Laptop>;
+  dataSource: MatTableDataSource<Phone | Car | Laptop>;
 
   constructor(private currencyPipe: CurrencyPipe) {
   }
@@ -44,7 +44,7 @@ export class ViewTableComponent implements OnInit, AfterViewInit {
         ...item,
         price: this.currencyPipe.transform(item.price, CurrenciesCode.Usd, DisplayAmountBy.Symbol),
         priceAmount: +item.price
-      } as ProductDataFields
+      }
     });
 
     this.dataSource = new MatTableDataSource(this.data);
@@ -55,17 +55,16 @@ export class ViewTableComponent implements OnInit, AfterViewInit {
     this.dataSource.filterPredicate = this.filterTable;
   }
 
-  private filterTable = (data: ProductDataFields, filter: string): boolean => {
-    const filterValue: string = filter.trim().toLowerCase();
-    return data.name.toLowerCase().includes(filterValue) || data.vendor.toLowerCase().includes(filterValue);
+  private filterTable = (data: Phone | Car | Laptop, filter: string): boolean => {
+    return data.name.toLowerCase().includes(filter) || data.vendor.toLowerCase().includes(filter);
   }
 
-  trackByFn = (index: number, item: ProductDataFields): number => {
+  trackByFn = (index: number, item: Phone | Car | Laptop): number => {
     return index;
   }
 
   sortBy(event: Sort): void {
-    this.dataSource.sortingDataAccessor = (data: ProductDataFields, sortHeaderId: string): string | number => {
+    this.dataSource.sortingDataAccessor = (data: Phone | Car | Laptop, sortHeaderId: string): string | number => {
       if (sortHeaderId === ProductFieldsName.Price) {
         return data.priceAmount;
       }
