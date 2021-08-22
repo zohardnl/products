@@ -31,6 +31,7 @@ export class ProductsComponent implements AfterViewInit {
   }
 
   onTabChange(event: MatTabChangeEvent): void {
+    //reset search field when section changed
     this.searchControl.reset('');
   }
 }

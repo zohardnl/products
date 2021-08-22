@@ -64,7 +64,7 @@ export class ViewTableComponent implements OnInit, AfterViewInit {
     return index;
   }
 
-  sortBy(event: Sort) {
+  sortBy(event: Sort): void {
     this.dataSource.sortingDataAccessor = (data: ProductDataFields, sortHeaderId: string): string | number => {
       if (sortHeaderId === ProductFieldsName.Price) {
         return data.priceAmount;
