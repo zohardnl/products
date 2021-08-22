@@ -1,6 +1,6 @@
 export interface ProductData {
   title: string;
-  items: ProductDataFields[]
+  items: ProductDataFields[] | Car[] | Laptop[]
 }
 
 export interface ProductDataFields {
@@ -8,14 +8,12 @@ export interface ProductDataFields {
   name: string;
   price: number | string;
   priceAmount?:number;
-  is_hybrid?: boolean;
-  system?: string;
 }
 
-// export interface Car extends ProductDataFields {
-//   is_hybrid: boolean;
-// }
-//
-// export interface Laptop extends ProductDataFields {
-//   system: string;
-// }
+export interface Car extends ProductDataFields {
+  is_hybrid: boolean;
+}
+
+export interface Laptop extends ProductDataFields {
+  system: string;
+}

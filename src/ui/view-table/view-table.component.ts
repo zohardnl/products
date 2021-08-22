@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import {ProductDataFields} from "../../core/models";
+import {Car, Laptop, ProductDataFields} from "../../core/models";
 import {MatSort, Sort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {CurrencyPipe} from "@angular/common";
@@ -20,8 +20,8 @@ import {CurrenciesCode, DisplayAmountBy, ProductFieldsName} from "../../core/enu
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewTableComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatSort) sort: MatSort;
-  @Input() data: ProductDataFields[];
+  @ViewChild(MatSort) private readonly sort: MatSort;
+  @Input() data: ProductDataFields[] | Car[] | Laptop[];
 
   @Input() set filterBy(val: string) {
     if (this.dataSource) {
@@ -30,13 +30,14 @@ export class ViewTableComponent implements OnInit, AfterViewInit {
   }
 
   displayedColumns: string[];
-  dataSource: MatTableDataSource<ProductDataFields>;
+  dataSource: MatTableDataSource<ProductDataFields | Car | Laptop>;
 
   constructor(private currencyPipe: CurrencyPipe) {
   }
 
   ngOnInit(): void {
-    this.displayedColumns = Object.keys(this.data[0]);
+    //to take the key names, because its the same in all other indexes
+    this.displayedColumns = Object.keys(this.data[0]).map(key => key.toLowerCase());
 
     this.data = this.data.map(item => {
       return {
@@ -49,17 +50,17 @@ export class ViewTableComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource(this.data);
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = this.filterTable;
   }
 
-  filterTable = (data: ProductDataFields, filter: string) => {
+  private filterTable = (data: ProductDataFields, filter: string): boolean => {
     const filterValue: string = filter.trim().toLowerCase();
     return data.name.toLowerCase().includes(filterValue) || data.vendor.toLowerCase().includes(filterValue);
   }
 
-  trackByFn = (index: number, item: ProductDataFields) => {
+  trackByFn = (index: number, item: ProductDataFields): number => {
     return index;
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, AfterViewInit} from '@angular/core';
+import {Component, ChangeDetectionStrategy, AfterViewInit} from '@angular/core';
 import {DataService} from "../../core/services/data.service";
 import {ProductData} from "../../core/models";
 import {FormControl} from "@angular/forms";
@@ -12,7 +12,7 @@ import {MatTabChangeEvent} from "@angular/material/tabs";
   styleUrls: ['./products.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsComponent implements OnInit, AfterViewInit {
+export class ProductsComponent implements AfterViewInit {
   productsData: ProductData[];
   searchControl: FormControl = new FormControl('');
   filterBy: Observable<string>;
@@ -21,19 +21,16 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     this.productsData = dataService.allData;
   }
 
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.filterBy = this.searchControl.valueChanges.pipe(
       debounceTime(800), distinctUntilChanged());
   }
 
-  trackByIndex = (index: number, item: ProductData) => {
+  trackByIndex = (index: number, item: ProductData): number => {
     return index;
   }
 
-  onTabChange(event: MatTabChangeEvent) {
+  onTabChange(event: MatTabChangeEvent): void {
     this.searchControl.reset('');
   }
 }
