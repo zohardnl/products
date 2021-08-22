@@ -56,7 +56,7 @@ export class ViewTableComponent implements OnInit, AfterViewInit {
   }
 
   private filterTable = (data: Phone | Car | Laptop, filter: string): boolean => {
-    return data.name.toLowerCase().includes(filter) || data.vendor.toLowerCase().includes(filter);
+    return data.vendor.toLowerCase().includes(filter) || data.name.toLowerCase().includes(filter);
   }
 
   trackByFn = (index: number, item: Phone | Car | Laptop): number => {
